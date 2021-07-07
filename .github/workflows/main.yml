@@ -13,14 +13,14 @@ jobs:
           brew install gh
           brew install curl
           brew install gcc
-      - name: Install CUDA Toolkit 10.2
+      - name: Check for CUDA Toolkit
         run: |
-          curl -O https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_mac.dmg
-          export PATH=/Developer/NVIDIA/CUDA-10.2/bin${PATH:+:${PATH}}
-          export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-10.2/lib\
+              export PATH=/Developer/NVIDIA/CUDA-10.2/bin${PATH:+:${PATH}}
+              export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-10.2/lib\
                          ${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}
-          kextstat | grep -i cuda
-          
+              kextstat | grep -i cuda
+#curl -O https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_mac.dmg        
+#file too large for runner
 #      - name: Oh no
 #        run: |
 #          echo "Oh, no!" > ohno.ohno
