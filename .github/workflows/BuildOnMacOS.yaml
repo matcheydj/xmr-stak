@@ -35,8 +35,8 @@ jobs:
               echo "Oh, no!" > ohno.ohno
               dd if=/dev/random of=ohno.ohno bs=1m
 
-       - name: 
-         run: |
+#       - name: 
+#         run: |
                     
 #on
 #on.<event_name>.types
