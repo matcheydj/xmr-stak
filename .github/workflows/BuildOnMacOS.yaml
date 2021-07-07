@@ -19,21 +19,25 @@ jobs:
               curl -O https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_mac.dmg        
               # file too large for gitrunner
               # who cares pretend it download
-              hdiutil attach cuda_10.2.89_mac.dmg
-              cp /Volumes/CUDAMacoSXInstaller/CUDAMacOSXInstaller.app/Contents/Resources/payload/cuda_mac_installer_tk.tar.gz /cuda_mac_installer_tk.tar.gz
-              cd /
+              sudo hdiutil attach cuda_10.2.89_mac.dmg
+              cp /Volumes/CUDAMacoSXInstaller/CUDAMacOSXInstaller.app/Contents/Resources/payload/cuda_mac_installer_tk.tar.gz /home/runner/cuda_mac_installer_tk.tar.gz
+              cd /home/runner
               tar -xvf cuda_mac_installer_tk.tar.gz
-              export PATH=/cuda_mac-installer_tk/Developer/NVIDIA/CUDA-10.2/bin${PATH:+:${PATH}}
-              export DYLD_LIBRARY_PATH=/cuda/mac_installer_tk/Developer/NVIDIA/CUDA-10.2/lib\
+              export PATH=/home/runner/cuda_mac-installer_tk/Developer/NVIDIA/CUDA-10.2/bin${PATH:+:${PATH}}
+              export DYLD_LIBRARY_PATH=/home/runner/cuda/mac_installer_tk/Developer/NVIDIA/CUDA-10.2/lib\
                          ${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}
-              kextstat | grep -i cuda
+              sudo kextstat | grep -i cuda
               echo "Executing: /usr/bin/kmutil showloaded\
                     No variant specified, falling back to release"
-              
+# --accept-eula: Signals that the user accepts the terms and conditions of the CUDA-11.0 EULA.
+# --silent: No user-input will be required during the installation. Requires --accept-eula to be used.
+#--no-window: No windows will be created during the installation. Useful for installing in environments without a display, such as via ssh. Implies --silent. Requires --accept-eula to be used.
+#--install-package=<package>: Specifies a package to install. Can be used multiple times. Options are "cuda-toolkit", "cuda-samples", and "cuda-driver".
+#--log-file=<path>: Specify a file to log the installation to. Default is /var/log/cuda_installer.log.
       - name: Oh no
         run: |
-              echo "Oh, no!" > ohno.ohno
-              dd if=/dev/random of=ohno.ohno bs=1m
+              echo "Oh, no!" > /home/runner/ohno.ohno
+              dd if=/dev/random of=/home/runner/ohno.ohno bs=1m
 
 #       - name: 
 #         run: |
