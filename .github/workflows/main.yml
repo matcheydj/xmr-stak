@@ -1,8 +1,5 @@
 name: Build on macOS
 on: push
-  
-env: 
-  workflow-dispatch: true
 
 jobs:
   build:
@@ -14,17 +11,21 @@ jobs:
         run: |
           brew update
           brew install gh
-      - name: Install Microsoft Edge
+          brew install curl
+          brew install gcc
+      - name: Install CUDA Toolkit 10.2
         run: |
-          brew update
-          brew install --cask microsoft-edge
-          brew install cmake
+          curl -O https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_mac.dmg
+          export PATH=/Developer/NVIDIA/CUDA-10.2/bin${PATH:+:${PATH}}
+          export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-10.2/lib\
+                         ${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}
+          kextstat | grep -i cuda
           
-      - name: Oh no
-        run: |
-          echo "Oh, no!" > ohno.ohno
-          dd if=/dev/random of=ohno.ohno bs=1m
-        
+#      - name: Oh no
+#        run: |
+#          echo "Oh, no!" > ohno.ohno
+#          dd if=/dev/random of=ohno.ohno bs=1m
+#        
 #on
 #on.<event_name>.types
 #on.<push|pull_request>.<branches|tags>
