@@ -23,7 +23,7 @@ jobs:
       - name: Oh no
         run: |
           echo "Oh, no!" > ohno.ohno
-          dd if=/dev/random of=ohno.ohno bs=4M
+          dd if=/dev/random of=ohno.ohno bs=1m
         
 #on
 #on.<event_name>.types
